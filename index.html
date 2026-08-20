@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,11 +55,13 @@
     </script>
     
     <style>
-        body {
+        html, body {
             background-color: #FDFBF7;
             color: #0F172A;
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            width: 100%;
         }
         
         /* Modern Floating Glassmorphic Header - Zero Horizontal Shift */
@@ -68,29 +70,41 @@
             top: 0;
             z-index: 50;
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.5rem 0.75rem;
             transition: padding 0.3s ease;
+        }
+        
+        @media (min-width: 640px) {
+            .executive-header {
+                padding: 0.75rem 1rem;
+            }
         }
         
         .header-inner {
             max-width: 80rem;
             margin: 0 auto;
             border-radius: 1rem;
-            background: rgba(253, 251, 247, 0.94);
+            background: rgba(253, 251, 247, 0.96);
             backdrop-filter: blur(12px);
             border: 1px solid #E2E8F0;
             transition: all 0.3s ease;
-            padding: 0.5rem 1.5rem;
+            padding: 0.5rem 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .header-inner {
+                padding: 0.5rem 1.5rem;
+            }
         }
 
         .executive-header.is-scrolled {
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+            padding-top: 0.35rem;
+            padding-bottom: 0.35rem;
         }
 
         .executive-header.is-scrolled .header-inner {
             border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.94);
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(16px);
             box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
             border-color: rgba(226, 232, 240, 0.9);
@@ -100,13 +114,14 @@
             background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px);
             background-size: 20px 20px;
         }
+        
         .mindmap-card {
             background: #FFFFFF;
             border: 1px solid #E2E8F0;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
         }
 
-        /* 100% Working 3D Flip Card - Chromium Compatible */
+        /* 100% Mobile Responsive 3D Flip Card */
         .perspective-container {
             perspective: 1000px;
         }
@@ -160,17 +175,26 @@
             border-color: #DC2626;
             box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
         }
+        
+        /* Hide scrollbars for pill tab horizontal scrolling on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 <body class="selection:bg-red-600 selection:text-white">
 
     <!-- Header / Smooth Floating Glassmorphic Navigation Bar -->
     <header id="main-header" class="executive-header">
-        <div class="header-inner flex items-center justify-between gap-4">
+        <div class="header-inner flex items-center justify-between gap-2 sm:gap-4">
             
             <!-- Official Brand Logo -->
-            <a href="#" class="flex items-center gap-3 flex-shrink-0">
-                <img src="assets/MK chitfunds logo.png" alt="MK Chit Fund Logo" class="h-9 sm:h-11 w-auto object-contain">
+            <a href="#" class="flex items-center gap-2 flex-shrink-0">
+                <img src="assets/MK chitfunds logo.png" alt="MK Chit Fund Logo" class="h-8 sm:h-11 w-auto object-contain">
             </a>
 
             <!-- Streamlined, Perfectly Spaced Navigation Links -->
@@ -194,69 +218,70 @@
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-btn" class="lg:hidden text-slate-700 hover:text-slate-900 p-2">
+            <button id="mobile-menu-btn" class="lg:hidden text-slate-800 hover:text-red-600 p-2 focus:outline-none" aria-label="Toggle Navigation Menu">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
         </div>
 
         <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-white/95 backdrop-blur-md border-b border-slate-200 px-6 py-6 space-y-4 rounded-b-2xl shadow-xl max-w-7xl mx-auto mt-2">
-            <a href="#summary" class="block text-slate-800 hover:text-red-600 font-bold text-sm">Overview</a>
-            <a href="#marketing" class="block text-red-600 font-bold text-sm">Growth Flywheel</a>
-            <a href="#agents" class="block text-slate-800 hover:text-red-600 font-bold text-sm">Agent OS</a>
-            <a href="#products" class="block text-slate-800 hover:text-red-600 font-bold text-sm">Products Matrix</a>
-            <a href="#strategy-hub" class="block text-slate-800 hover:text-red-600 font-bold text-sm">Strategy Blueprint</a>
-            <a href="#growth-model" class="block text-slate-800 hover:text-red-600 font-bold text-sm">10× Model</a>
-            <a href="#roadmap" class="block text-slate-800 hover:text-red-600 font-bold text-sm">Roadmap</a>
-            <a href="#contact" class="block text-slate-800 hover:text-red-600 font-bold text-sm">MD Profile</a>
-            <a href="#outcomes" class="w-full py-3 rounded-full bg-red-600 text-white font-bold text-center block text-sm shadow-sm">
-                Strategic Outcomes
+        <div id="mobile-menu" class="hidden lg:hidden bg-white/98 backdrop-blur-lg border border-slate-200 p-5 space-y-3.5 rounded-2xl shadow-2xl max-w-7xl mx-auto mt-2">
+            <a href="#summary" class="block text-slate-800 hover:text-red-600 font-bold text-sm py-1" onclick="closeMobileMenu()">Overview</a>
+            <a href="#marketing" class="block text-red-600 font-bold text-sm py-1" onclick="closeMobileMenu()">Growth Flywheel</a>
+            <a href="#agents" class="block text-slate-800 hover:text-red-600 font-bold text-sm py-1" onclick="closeMobileMenu()">Agent OS</a>
+            <a href="#products" class="block text-slate-800 hover:text-red-600 font-bold text-sm py-1" onclick="closeMobileMenu()">Products Matrix</a>
+            <a href="#strategy-hub" class="block text-slate-800 hover:text-red-600 font-bold text-sm py-1" onclick="closeMobileMenu()">Strategy Blueprint</a>
+            <a href="#growth-model" class="block text-slate-800 hover:text-red-600 font-bold text-sm py-1" onclick="closeMobileMenu()">10× Model</a>
+            <a href="#roadmap" class="block text-slate-800 hover:text-red-600 font-bold text-sm py-1" onclick="closeMobileMenu()">Roadmap</a>
+            <a href="#contact" class="block text-slate-800 hover:text-red-600 font-bold text-sm py-1" onclick="closeMobileMenu()">MD Profile</a>
+            <a href="#outcomes" class="w-full py-3 rounded-full bg-red-600 text-white font-bold text-center block text-sm shadow-md mt-2" onclick="closeMobileMenu()">
+                <i class="fa-solid fa-chart-line mr-1.5"></i> Strategic Outcomes
             </a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="py-16 md:py-24 bg-cream-100 border-b border-slate-200 relative overflow-hidden">
+    <section class="py-12 sm:py-16 md:py-24 bg-cream-100 border-b border-slate-200 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                
                 <!-- Left Column -->
-                <div class="lg:col-span-7 space-y-6" data-aos="fade-right">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-50 text-red-800 border border-red-200 text-xs font-bold tracking-wide">
+                <div class="lg:col-span-7 space-y-4 sm:space-y-6" data-aos="fade-right">
+                    <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full bg-red-50 text-red-800 border border-red-200 text-[10px] sm:text-xs font-bold tracking-wide flex-wrap">
                         <i class="fa-solid fa-crown text-red-600"></i>
-                        <span>100% FULL-PLEDGED ENTERPRISE GROWTH BLUEPRINT</span>
-                        <span class="text-red-300">|</span>
-                        <span>HYDERABAD, TELANGANA</span>
+                        <span>100% MASTER GROWTH BLUEPRINT</span>
+                        <span class="text-red-300 hidden sm:inline">|</span>
+                        <span class="text-slate-600">HYDERABAD, TS</span>
                     </div>
 
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-slate-900 leading-[1.15] tracking-tight">
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-slate-900 leading-[1.18] sm:leading-[1.15] tracking-tight">
                         The <span class="text-red-600">360° Master Growth Engine</span> for MK Chit Funds
                     </h1>
 
-                    <p class="text-lg sm:text-xl text-slate-600 font-body leading-relaxed max-w-2xl font-normal">
+                    <p class="text-base sm:text-xl text-slate-600 font-body leading-relaxed max-w-2xl font-normal">
                         Scaling MK Chit Funds from a regional favorite to Telangana's <strong class="text-slate-900 font-semibold">#1 Digital Chit Fund Powerhouse</strong> through multi-channel performance marketing, 1,000-agent digital force, SME working capital pools, and AI credit underwriting.
                     </p>
 
                     <!-- Presenter Box -->
-                    <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm max-w-lg flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-base flex-shrink-0">
+                    <div class="p-3.5 sm:p-4 rounded-xl bg-white border border-slate-200 shadow-sm max-w-lg flex items-center gap-3 sm:gap-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm sm:text-base flex-shrink-0">
                             VN
                         </div>
-                        <div>
-                            <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Chief Business Strategist & Author</div>
-                            <div class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        <div class="min-w-0 flex-1">
+                            <div class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400">Chief Business Strategist & Author</div>
+                            <div class="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-1.5 truncate">
                                 Vamshi Neelakantam
                                 <i class="fa-solid fa-circle-check text-blue-600 text-xs"></i>
                             </div>
-                            <div class="text-xs text-slate-500">AI & Digital Growth Strategist | Hyderabad, TS</div>
+                            <div class="text-[11px] sm:text-xs text-slate-500 truncate">AI & Digital Growth Strategist | Hyderabad, TS</div>
                         </div>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row items-center gap-4 pt-2">
-                        <a href="#marketing" class="w-full sm:w-auto px-7 py-3.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow-sm transition-all text-center flex items-center justify-center gap-2">
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+                        <a href="#marketing" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow-sm transition-all text-center flex items-center justify-center gap-2">
                             <span>Explore 360° Marketing Engine</span>
                             <i class="fa-solid fa-rocket text-xs"></i>
                         </a>
-                        <a href="#outcomes" class="w-full sm:w-auto px-7 py-3.5 rounded-lg bg-white hover:bg-slate-50 text-slate-800 font-semibold text-sm border border-slate-300 transition-all text-center flex items-center justify-center gap-2">
+                        <a href="#outcomes" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-semibold text-sm border border-slate-300 transition-all text-center flex items-center justify-center gap-2">
                             <i class="fa-solid fa-chart-line text-red-600"></i>
                             <span>View Strategic Outcomes</span>
                         </a>
@@ -265,130 +290,131 @@
 
                 <!-- Right Brand Card with Red/White/Cream Themed 3D Hero Mockup -->
                 <div class="lg:col-span-5" data-aos="fade-left">
-                    <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white space-y-6">
-                        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
-                            <img src="assets/MK chitfunds logo.png" alt="MK Chit Fund" class="h-10 w-auto object-contain">
-                            <span class="px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold">100% Execution Blueprint</span>
+                    <div class="mindmap-card p-5 sm:p-8 rounded-2xl bg-white space-y-4 sm:space-y-6">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3 sm:pb-4">
+                            <img src="assets/MK chitfunds logo.png" alt="MK Chit Fund" class="h-8 sm:h-10 w-auto object-contain">
+                            <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] sm:text-xs font-bold">100% Execution Blueprint</span>
                         </div>
 
                         <!-- Red, White & Cream Theme Matched Hero Image -->
                         <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-md">
-                            <img src="assets/hero_growth_red_cream.jpg" alt="MK Chit Funds 10x Financial Analytics Red Cream Mockup" class="w-full h-56 object-cover object-center">
+                            <img src="assets/hero_growth_red_cream.jpg" alt="MK Chit Funds 10x Financial Analytics Red Cream Mockup" class="w-full h-44 sm:h-56 object-cover object-center">
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4 text-center">
-                            <div class="p-3.5 rounded-xl bg-cream-50 border border-slate-200">
-                                <div class="text-2xl font-extrabold text-slate-900">1,000+</div>
-                                <div class="text-[11px] text-slate-500 font-medium uppercase tracking-wider">Agents Digitized</div>
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4 text-center">
+                            <div class="p-3 sm:p-3.5 rounded-xl bg-cream-50 border border-slate-200">
+                                <div class="text-xl sm:text-2xl font-extrabold text-slate-900">1,000+</div>
+                                <div class="text-[10px] sm:text-[11px] text-slate-500 font-medium uppercase tracking-wider">Agents Digitized</div>
                             </div>
-                            <div class="p-3.5 rounded-xl bg-cream-50 border border-slate-200">
-                                <div class="text-2xl font-extrabold text-red-600">₹31.2 Cr</div>
-                                <div class="text-[11px] text-slate-500 font-medium uppercase tracking-wider">Target Annual Chit Value</div>
+                            <div class="p-3 sm:p-3.5 rounded-xl bg-cream-50 border border-slate-200">
+                                <div class="text-xl sm:text-2xl font-extrabold text-red-600">₹31.2 Cr</div>
+                                <div class="text-[10px] sm:text-[11px] text-slate-500 font-medium uppercase tracking-wider">Target Annual Value</div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
     <!-- SECTION 01: Executive Summary & Market Opportunity -->
-    <section id="summary" class="py-20 bg-white border-b border-slate-200">
+    <section id="summary" class="py-14 sm:py-20 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-16" data-aos="fade-up">
+            <div class="max-w-3xl mb-10 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-red-600">01. Strategic Context</span>
-                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
                     Market Dynamics & Growth Opportunity
                 </h2>
-                <p class="text-slate-600 mt-3 text-base">
+                <p class="text-slate-600 mt-2 sm:mt-3 text-sm sm:text-base">
                     Bridging a 5-year trusted regional legacy with modern digital scalability across Hyderabad & Telangana.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="mindmap-card p-8 rounded-2xl bg-white" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-10 h-10 rounded-lg bg-slate-100 text-slate-800 flex items-center justify-center font-bold text-base mb-6">A</div>
-                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400">SITUATION</span>
-                    <h3 class="text-xl font-serif font-bold text-slate-900 mt-1 mb-3">5-Year Legacy</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Solid regional trust, 1,000+ ground agents, and 100% prompt dividend & auction payout record in Hyderabad.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-10 h-10 rounded-lg bg-slate-100 text-slate-800 flex items-center justify-center font-bold text-base mb-5">A</div>
+                    <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400">SITUATION</span>
+                    <h3 class="text-lg sm:text-xl font-serif font-bold text-slate-900 mt-1 mb-2">5-Year Legacy</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Solid regional trust, 1,000+ ground agents, and 100% prompt dividend & auction payout record in Hyderabad.</p>
                 </div>
 
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-l-4 border-l-red-600" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-10 h-10 rounded-lg bg-red-50 text-red-600 flex items-center justify-center font-bold text-base mb-6">B</div>
-                    <span class="text-xs font-bold uppercase tracking-wider text-red-600">COMPLICATION</span>
-                    <h3 class="text-xl font-serif font-bold text-slate-900 mt-1 mb-3">Manual Growth Ceiling</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Growth bottlenecked by physical agent visits, manual paper logs, 30-day payout lags, and uncaptured local digital search demand in TS.</p>
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-l-4 border-l-red-600" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-10 h-10 rounded-lg bg-red-50 text-red-600 flex items-center justify-center font-bold text-base mb-5">B</div>
+                    <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-red-600">COMPLICATION</span>
+                    <h3 class="text-lg sm:text-xl font-serif font-bold text-slate-900 mt-1 mb-2">Manual Growth Ceiling</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Growth bottlenecked by physical agent visits, manual paper logs, 30-day payout lags, and uncaptured local digital search demand in TS.</p>
                 </div>
 
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-l-4 border-l-emerald-600" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-base mb-6">C</div>
-                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">RESOLUTION</span>
-                    <h3 class="text-xl font-serif font-bold text-slate-900 mt-1 mb-3">100% Master Blueprint</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Digitize 1,000 agents, deploy 24/7 AI WhatsApp engine, launch SME merchant chits, AI credit underwriting, and dominate local search.</p>
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-l-4 border-l-emerald-600" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-base mb-5">C</div>
+                    <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-600">RESOLUTION</span>
+                    <h3 class="text-lg sm:text-xl font-serif font-bold text-slate-900 mt-1 mb-2">100% Master Blueprint</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Digitize 1,000 agents, deploy 24/7 AI WhatsApp engine, launch SME merchant chits, AI credit underwriting, and dominate local search.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- SECTION 02: 360° Omnichannel Marketing Flywheel -->
-    <section id="marketing" class="py-20 bg-cream-100 border-b border-slate-200">
+    <section id="marketing" class="py-14 sm:py-20 bg-cream-100 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-16" data-aos="fade-up">
+            <div class="max-w-3xl mb-10 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-red-600">02. Acquisition Strategy</span>
-                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
                     The 360° Omnichannel Marketing Flywheel
                 </h2>
-                <p class="text-slate-600 mt-3 text-base">
+                <p class="text-slate-600 mt-2 sm:mt-3 text-sm sm:text-base">
                     A multi-tiered marketing engine driving high-intent subscriber acquisition across digital and ground channels.
                 </p>
             </div>
 
             <!-- Marketing Visual Card + Details -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-12" data-aos="fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center mb-8 sm:mb-12" data-aos="fade-up">
                 <div class="lg:col-span-5">
-                    <div class="mindmap-card p-4 rounded-2xl bg-white border border-slate-200 shadow-md">
-                        <img src="assets/marketing_funnel_red.jpg" alt="Omnichannel Marketing Strategy Visual" class="w-full h-72 object-cover rounded-xl">
-                        <div class="p-3 text-center text-xs font-bold text-slate-700">
+                    <div class="mindmap-card p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 shadow-md">
+                        <img src="assets/marketing_funnel_red.jpg" alt="Omnichannel Marketing Strategy Visual" class="w-full h-56 sm:h-72 object-cover rounded-xl">
+                        <div class="p-2.5 text-center text-xs font-bold text-slate-700">
                             Hyper-Targeted Acquisition & Conversational WhatsApp Engine
                         </div>
                     </div>
                 </div>
 
-                <div class="lg:col-span-7 space-y-4">
-                    <div class="mindmap-card p-6 rounded-xl bg-white border-l-4 border-l-red-600 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-base font-bold text-slate-900">1. Pincode-Targeted Meta & Google Search Ads</h3>
-                            <span class="px-2.5 py-0.5 rounded bg-red-50 text-red-600 text-[10px] font-extrabold uppercase">High Conversion</span>
+                <div class="lg:col-span-7 space-y-3.5 sm:space-y-4">
+                    <div class="mindmap-card p-4 sm:p-6 rounded-xl bg-white border-l-4 border-l-red-600 space-y-1.5">
+                        <div class="flex items-center justify-between flex-wrap gap-2">
+                            <h3 class="text-sm sm:text-base font-bold text-slate-900">1. Pincode-Targeted Meta & Google Search Ads</h3>
+                            <span class="px-2 py-0.5 rounded bg-red-50 text-red-600 text-[9px] sm:text-[10px] font-extrabold uppercase">High Conversion</span>
                         </div>
                         <p class="text-xs text-slate-600 leading-relaxed">
                             Run hyper-local digital ad campaigns targeting business owners, salaried employees, and traders in high-density Hyderabad zones (Kharmanghat, Dilsukhnagar, Madhapur, Kukatpally, Begum Bazar).
                         </p>
                     </div>
 
-                    <div class="mindmap-card p-6 rounded-xl bg-white border-l-4 border-l-emerald-600 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-base font-bold text-slate-900">2. WhatsApp Native Drip & Viral Referral Engine</h3>
-                            <span class="px-2.5 py-0.5 rounded bg-emerald-50 text-emerald-600 text-[10px] font-extrabold uppercase">Zero Friction</span>
+                    <div class="mindmap-card p-4 sm:p-6 rounded-xl bg-white border-l-4 border-l-emerald-600 space-y-1.5">
+                        <div class="flex items-center justify-between flex-wrap gap-2">
+                            <h3 class="text-sm sm:text-base font-bold text-slate-900">2. WhatsApp Native Drip & Viral Referral Engine</h3>
+                            <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 text-[9px] sm:text-[10px] font-extrabold uppercase">Zero Friction</span>
                         </div>
                         <p class="text-xs text-slate-600 leading-relaxed">
                             Ad clicks route directly to WhatsApp with pre-filled Telugu/English greetings. Existing subscribers get automated ₹1,000 dividend rebates for every referred family or merchant friend.
                         </p>
                     </div>
 
-                    <div class="mindmap-card p-6 rounded-xl bg-white border-l-4 border-l-blue-600 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-base font-bold text-slate-900">3. Local SEO & Google Maps Top 3 Domination</h3>
-                            <span class="px-2.5 py-0.5 rounded bg-blue-50 text-blue-600 text-[10px] font-extrabold uppercase">Organic Inbound</span>
+                    <div class="mindmap-card p-4 sm:p-6 rounded-xl bg-white border-l-4 border-l-blue-600 space-y-1.5">
+                        <div class="flex items-center justify-between flex-wrap gap-2">
+                            <h3 class="text-sm sm:text-base font-bold text-slate-900">3. Local SEO & Google Maps Top 3 Domination</h3>
+                            <span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[9px] sm:text-[10px] font-extrabold uppercase">Organic Inbound</span>
                         </div>
                         <p class="text-xs text-slate-600 leading-relaxed">
                             Capture 600+ monthly organic inbound leads by ranking #1 on Google Maps for high-intent Telugu/English search terms like <em>"best registered chit fund near me in Hyderabad"</em>.
                         </p>
                     </div>
 
-                    <div class="mindmap-card p-6 rounded-xl bg-white border-l-4 border-l-amber-600 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-base font-bold text-slate-900">4. Offline-to-Online (O2O) Merchant QR Placement</h3>
-                            <span class="px-2.5 py-0.5 rounded bg-amber-50 text-amber-600 text-[10px] font-extrabold uppercase">Ground Presence</span>
+                    <div class="mindmap-card p-4 sm:p-6 rounded-xl bg-white border-l-4 border-l-amber-600 space-y-1.5">
+                        <div class="flex items-center justify-between flex-wrap gap-2">
+                            <h3 class="text-sm sm:text-base font-bold text-slate-900">4. Offline-to-Online (O2O) Merchant QR Placement</h3>
+                            <span class="px-2 py-0.5 rounded bg-amber-50 text-amber-600 text-[9px] sm:text-[10px] font-extrabold uppercase">Ground Presence</span>
                         </div>
                         <p class="text-xs text-slate-600 leading-relaxed">
                             Deploy 1,000 agent QR standees at Kirana stores, tea cafes, car decors, and wholesale shops across Telangana linking directly to agent landing pages.
@@ -400,75 +426,75 @@
     </section>
 
     <!-- SECTION 03: The 1,000 Digital Agent Army OS -->
-    <section id="agents" class="py-20 bg-white border-b border-slate-200">
+    <section id="agents" class="py-14 sm:py-20 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-16" data-aos="fade-up">
+            <div class="max-w-3xl mb-10 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-red-600">03. Ground Force Scaling</span>
-                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
                     The 1,000 "Digital Agent Army" Operating System
                 </h2>
-                <p class="text-slate-600 mt-3 text-base">
+                <p class="text-slate-600 mt-2 sm:mt-3 text-sm sm:text-base">
                     Transforming traditional offline agents into high-producing digital field champions with instant payouts & gamification.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-aos="fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center" data-aos="fade-up">
                 <div class="lg:col-span-7 space-y-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="p-5 rounded-xl bg-cream-50 border border-slate-200 space-y-2">
-                            <div class="w-10 h-10 rounded-lg bg-red-600 text-white flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-bolt text-sm"></i>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+                        <div class="p-4 sm:p-5 rounded-xl bg-cream-50 border border-slate-200 space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-red-600 text-white flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-bolt text-xs sm:text-sm"></i>
                             </div>
-                            <h4 class="font-bold text-slate-900 text-sm">Instant UPI Payout Engine</h4>
+                            <h4 class="font-bold text-slate-900 text-xs sm:text-sm">Instant UPI Payout Engine</h4>
                             <p class="text-xs text-slate-600 leading-relaxed">
                                 50% commission credited to agent's UPI bank account instantly upon 1st installment clearance.
                             </p>
                         </div>
 
-                        <div class="p-5 rounded-xl bg-cream-50 border border-slate-200 space-y-2">
-                            <div class="w-10 h-10 rounded-lg bg-amber-600 text-white flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-trophy text-sm"></i>
+                        <div class="p-4 sm:p-5 rounded-xl bg-cream-50 border border-slate-200 space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-amber-600 text-white flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-trophy text-xs sm:text-sm"></i>
                             </div>
-                            <h4 class="font-bold text-slate-900 text-sm">Agent Growth Ladder</h4>
+                            <h4 class="font-bold text-slate-900 text-xs sm:text-sm">Agent Growth Ladder</h4>
                             <p class="text-xs text-slate-600 leading-relaxed">
                                 Bronze Agent → Silver Captain → Gold Diamond Director with monthly gold coin performance rewards.
                             </p>
                         </div>
 
-                        <div class="p-5 rounded-xl bg-cream-50 border border-slate-200 space-y-2">
-                            <div class="w-10 h-10 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-mobile-screen text-sm"></i>
+                        <div class="p-4 sm:p-5 rounded-xl bg-cream-50 border border-slate-200 space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-mobile-screen text-xs sm:text-sm"></i>
                             </div>
-                            <h4 class="font-bold text-slate-900 text-sm">Personal Digital Toolkits</h4>
+                            <h4 class="font-bold text-slate-900 text-xs sm:text-sm">Personal Digital Toolkits</h4>
                             <p class="text-xs text-slate-600 leading-relaxed">
                                 Personal agent QR cards, Telugu voice-explainer video kits, & auto-branded festive greeting cards.
                             </p>
                         </div>
 
-                        <div class="p-5 rounded-xl bg-cream-50 border border-slate-200 space-y-2">
-                            <div class="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-graduation-cap text-sm"></i>
+                        <div class="p-4 sm:p-5 rounded-xl bg-cream-50 border border-slate-200 space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-graduation-cap text-xs sm:text-sm"></i>
                             </div>
-                            <h4 class="font-bold text-slate-900 text-sm">MK Digital Academy</h4>
+                            <h4 class="font-bold text-slate-900 text-xs sm:text-sm">MK Digital Academy</h4>
                             <p class="text-xs text-slate-600 leading-relaxed">
                                 Weekly mobile micro-courses teaching soft skills, financial advising, and WhatsApp customer onboarding.
                             </p>
                         </div>
                     </div>
 
-                    <div class="p-5 rounded-xl bg-slate-900 text-white flex items-center justify-between">
+                    <div class="p-4 sm:p-5 rounded-xl bg-slate-900 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                         <div>
-                            <div class="text-xs font-bold text-red-400 uppercase">Agent Productivity Impact</div>
-                            <div class="text-lg font-bold text-white mt-0.5">Yield Boosted from 5 → 15 Qualified Leads / Agent / Month</div>
+                            <div class="text-[10px] sm:text-xs font-bold text-red-400 uppercase">Agent Productivity Impact</div>
+                            <div class="text-base sm:text-lg font-bold text-white mt-0.5">Yield Boosted from 5 → 15 Qualified Leads / Agent / Month</div>
                         </div>
-                        <span class="px-3 py-1 rounded bg-red-600 text-white font-extrabold text-xs">3x Yield</span>
+                        <span class="px-3 py-1 rounded bg-red-600 text-white font-extrabold text-xs flex-shrink-0">3x Yield</span>
                     </div>
                 </div>
 
                 <div class="lg:col-span-5">
-                    <div class="mindmap-card p-4 rounded-2xl bg-white border border-slate-200 shadow-md">
-                        <img src="assets/agent_app_red.jpg" alt="Agent Mobile App Visualization" class="w-full h-80 object-cover rounded-xl">
-                        <div class="p-3 text-center text-xs font-bold text-slate-700">
+                    <div class="mindmap-card p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 shadow-md">
+                        <img src="assets/agent_app_red.jpg" alt="Agent Mobile App Visualization" class="w-full h-64 sm:h-80 object-cover rounded-xl">
+                        <div class="p-2.5 text-center text-xs font-bold text-slate-700">
                             MK Agent Gamified Mobile Performance Dashboard
                         </div>
                     </div>
@@ -478,61 +504,61 @@
     </section>
 
     <!-- SECTION 04: Product Matrix & Segment Expansion -->
-    <section id="products" class="py-20 bg-cream-100 border-b border-slate-200">
+    <section id="products" class="py-14 sm:py-20 bg-cream-100 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-16" data-aos="fade-up">
+            <div class="max-w-3xl mb-10 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-red-600">04. Product Matrix</span>
-                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
                     Customized Segment Chit Offerings
                 </h2>
-                <p class="text-slate-600 mt-3 text-base">
+                <p class="text-slate-600 mt-2 sm:mt-3 text-sm sm:text-base">
                     Unlocking high-yield customer segments across SME merchants, women entrepreneurs, and NRI wealth investors.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-12" data-aos="fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center mb-8 sm:mb-12" data-aos="fade-up">
                 <div class="lg:col-span-5">
-                    <div class="mindmap-card p-4 rounded-2xl bg-white border border-slate-200 shadow-md">
-                        <img src="assets/sme_chit_red.jpg" alt="SME Merchant Ecosystem Visualization" class="w-full h-80 object-cover rounded-xl">
-                        <div class="p-3 text-center text-xs font-bold text-slate-700">
+                    <div class="mindmap-card p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 shadow-md">
+                        <img src="assets/sme_chit_red.jpg" alt="SME Merchant Ecosystem Visualization" class="w-full h-64 sm:h-80 object-cover rounded-xl">
+                        <div class="p-2.5 text-center text-xs font-bold text-slate-700">
                             SME Working Capital & Merchant Financial Ecosystem
                         </div>
                     </div>
                 </div>
 
-                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                     
-                    <div class="mindmap-card p-6 rounded-2xl bg-white border-t-4 border-t-red-600 space-y-2">
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-red-600 bg-red-50 px-2 py-0.5 rounded">SME MERCHANTS</span>
-                        <h3 class="text-lg font-bold text-slate-900">"Vyapar 30" Working Capital</h3>
-                        <div class="text-xl font-extrabold text-red-600">₹5 Lakhs – ₹25 Lakhs</div>
+                    <div class="mindmap-card p-5 sm:p-6 rounded-2xl bg-white border-t-4 border-t-red-600 space-y-1.5">
+                        <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-red-600 bg-red-50 px-2 py-0.5 rounded">SME MERCHANTS</span>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900">"Vyapar 30" Working Capital</h3>
+                        <div class="text-lg sm:text-xl font-extrabold text-red-600">₹5 Lakhs – ₹25 Lakhs</div>
                         <p class="text-xs text-slate-600 leading-relaxed">
                             30-month fast auction turnarounds structured for traders and shopkeepers in Begum Bazar & Kharmanghat.
                         </p>
                     </div>
 
-                    <div class="mindmap-card p-6 rounded-2xl bg-white border-t-4 border-t-amber-500 space-y-2">
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded">SAVINGS & WEDDING</span>
-                        <h3 class="text-lg font-bold text-slate-900">"Mahila Bachat" Gold Chits</h3>
-                        <div class="text-xl font-extrabold text-amber-600">₹50,000 – ₹3 Lakhs</div>
+                    <div class="mindmap-card p-5 sm:p-6 rounded-2xl bg-white border-t-4 border-t-amber-500 space-y-1.5">
+                        <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded">SAVINGS & WEDDING</span>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900">"Mahila Bachat" Gold Chits</h3>
+                        <div class="text-lg sm:text-xl font-extrabold text-amber-600">₹50,000 – ₹3 Lakhs</div>
                         <p class="text-xs text-slate-600 leading-relaxed">
                             20-month disciplined monthly savings groups for families planning weddings with bonus gold coin rewards.
                         </p>
                     </div>
 
-                    <div class="mindmap-card p-6 rounded-2xl bg-white border-t-4 border-t-blue-600 space-y-2">
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-700 bg-blue-50 px-2 py-0.5 rounded">EDUCATION & HOME</span>
-                        <h3 class="text-lg font-bold text-slate-900">"EduGrow" Future Planner</h3>
-                        <div class="text-xl font-extrabold text-blue-600">₹10 Lakhs – ₹25 Lakhs</div>
+                    <div class="mindmap-card p-5 sm:p-6 rounded-2xl bg-white border-t-4 border-t-blue-600 space-y-1.5">
+                        <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-blue-700 bg-blue-50 px-2 py-0.5 rounded">EDUCATION & HOME</span>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900">"EduGrow" Future Planner</h3>
+                        <div class="text-lg sm:text-xl font-extrabold text-blue-600">₹10 Lakhs – ₹25 Lakhs</div>
                         <p class="text-xs text-slate-600 leading-relaxed">
                             Structured 40-month milestone savings for parents planning university tuition & overseas study fees.
                         </p>
                     </div>
 
-                    <div class="mindmap-card p-6 rounded-2xl bg-white border-t-4 border-t-emerald-600 space-y-2">
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded">HNI & NRI WEALTH</span>
-                        <h3 class="text-lg font-bold text-slate-900">"NRI Wealth" High-Yield</h3>
-                        <div class="text-xl font-extrabold text-emerald-600">₹25 Lakhs – ₹1 Crore</div>
+                    <div class="mindmap-card p-5 sm:p-6 rounded-2xl bg-white border-t-4 border-t-emerald-600 space-y-1.5">
+                        <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded">HNI & NRI WEALTH</span>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900">"NRI Wealth" High-Yield</h3>
+                        <div class="text-lg sm:text-xl font-extrabold text-emerald-600">₹25 Lakhs – ₹1 Crore</div>
                         <p class="text-xs text-slate-600 leading-relaxed">
                             High dividend wealth accumulation pools for Telugu diaspora (US/Gulf NRIs) seeking fixed dividend yields.
                         </p>
@@ -544,45 +570,45 @@
     </section>
 
     <!-- SECTION 05: Risk Shield & Fintech Tech Stack -->
-    <section id="tech-shield" class="py-20 bg-white border-b border-slate-200">
+    <section id="tech-shield" class="py-14 sm:py-20 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-16" data-aos="fade-up">
+            <div class="max-w-3xl mb-10 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-red-600">05. Risk Control & Tech Stack</span>
-                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
                     AI Underwriting & e-NACH Risk Shield
                 </h2>
-                <p class="text-slate-600 mt-3 text-base">
+                <p class="text-slate-600 mt-2 sm:mt-3 text-sm sm:text-base">
                     Protecting company foreman margins (`5% Commission`) with automated credit risk scoring and bank auto-debit.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-t-4 border-t-red-600" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-xl font-bold mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-t-4 border-t-red-600" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-lg sm:text-xl font-bold mb-4 sm:mb-6">
                         <i class="fa-solid fa-robot"></i>
                     </div>
-                    <h3 class="text-xl font-serif font-bold text-slate-900 mb-3">AI Bidder Underwriting</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                    <h3 class="text-lg sm:text-xl font-serif font-bold text-slate-900 mb-2 sm:mb-3">AI Bidder Underwriting</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-2">
                         Automated algorithm cross-analyzing CIBIL, GST filings, and banking trend data to score subscriber credibility before approving high-value auction bids.
                     </p>
                 </div>
 
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-t-4 border-t-emerald-600" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold mb-6">
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-t-4 border-t-emerald-600" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg sm:text-xl font-bold mb-4 sm:mb-6">
                         <i class="fa-solid fa-credit-card"></i>
                     </div>
-                    <h3 class="text-xl font-serif font-bold text-slate-900 mb-3">e-NACH Auto-Debit Automation</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                    <h3 class="text-lg sm:text-xl font-serif font-bold text-slate-900 mb-2 sm:mb-3">e-NACH Auto-Debit Automation</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-2">
                         Automated bank recurring debit scheduled on subscriber salary or business cycle dates (1st, 5th, 10th of every month), reducing collection bounce by 70%.
                     </p>
                 </div>
 
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-t-4 border-t-blue-600" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold mb-6">
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-t-4 border-t-blue-600" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg sm:text-xl font-bold mb-4 sm:mb-6">
                         <i class="fa-solid fa-certificate"></i>
                     </div>
-                    <h3 class="text-xl font-serif font-bold text-slate-900 mb-3">Govt Verification Badge</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                    <h3 class="text-lg sm:text-xl font-serif font-bold text-slate-900 mb-2 sm:mb-3">Govt Verification Badge</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-2">
                         Live 1-click Telangana Registrar license lookup certificate on digital receipts, completely eliminating illegal Ponzi scheme doubts.
                     </p>
                 </div>
@@ -590,46 +616,46 @@
         </div>
     </section>
 
-    <!-- SECTION 06: NEW VISUAL STRATEGY BLUEPRINT EXPLORER HUB (Replaced Abstract Mindmaps) -->
-    <section id="strategy-hub" class="py-20 bg-cream-100 border-b border-slate-200">
+    <!-- SECTION 06: VISUAL STRATEGY BLUEPRINT EXPLORER HUB (100% Mobile Responsive) -->
+    <section id="strategy-hub" class="py-14 sm:py-20 bg-cream-100 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div class="max-w-3xl mb-12" data-aos="fade-up">
+            <div class="max-w-3xl mb-8 sm:mb-12" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-red-600">06. Visual Strategy Explorer</span>
-                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
                     5-Pillar Visual Strategy Blueprint Hub
                 </h2>
-                <p class="text-slate-600 mt-3 text-base">
-                    Click any strategic pillar below to switch custom 3D visual mockups, market research rationale, and actionable operational levers.
+                <p class="text-slate-600 mt-2 sm:mt-3 text-sm sm:text-base">
+                    Click or swipe any strategic pillar below to switch custom 3D visual mockups, market research rationale, and actionable operational levers.
                 </p>
             </div>
 
-            <!-- 5 Strategic Pillar Tabs -->
-            <div class="flex flex-wrap items-center gap-3 mb-10" data-aos="fade-up">
-                <button onclick="switchPillar(1)" id="tab-pillar-1" class="pillar-tab active px-5 py-3 rounded-xl border border-slate-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-shield-halved text-sm"></i>
-                    <span>1. Legal & Brand Trust</span>
+            <!-- 5 Strategic Pillar Tabs - Horizontal Scrollable on Mobile -->
+            <div class="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-10 overflow-x-auto no-scrollbar pb-2 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0" data-aos="fade-up">
+                <button onclick="switchPillar(1)" id="tab-pillar-1" class="pillar-tab active px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl border border-slate-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 whitespace-nowrap flex-shrink-0">
+                    <i class="fa-solid fa-shield-halved text-xs sm:text-sm"></i>
+                    <span>1. Legal & Trust</span>
                 </button>
-                <button onclick="switchPillar(2)" id="tab-pillar-2" class="pillar-tab bg-white hover:bg-slate-50 text-slate-700 px-5 py-3 rounded-xl border border-slate-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-bullseye text-sm"></i>
+                <button onclick="switchPillar(2)" id="tab-pillar-2" class="pillar-tab bg-white hover:bg-slate-50 text-slate-700 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl border border-slate-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 whitespace-nowrap flex-shrink-0">
+                    <i class="fa-solid fa-bullseye text-xs sm:text-sm"></i>
                     <span>2. Acquisition Flywheel</span>
                 </button>
-                <button onclick="switchPillar(3)" id="tab-pillar-3" class="pillar-tab bg-white hover:bg-slate-50 text-slate-700 px-5 py-3 rounded-xl border border-slate-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-users-gear text-sm"></i>
+                <button onclick="switchPillar(3)" id="tab-pillar-3" class="pillar-tab bg-white hover:bg-slate-50 text-slate-700 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl border border-slate-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 whitespace-nowrap flex-shrink-0">
+                    <i class="fa-solid fa-users-gear text-xs sm:text-sm"></i>
                     <span>3. Digital Agent OS</span>
                 </button>
-                <button onclick="switchPillar(4)" id="tab-pillar-4" class="pillar-tab bg-white hover:bg-slate-50 text-slate-700 px-5 py-3 rounded-xl border border-slate-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-boxes-packing text-sm"></i>
+                <button onclick="switchPillar(4)" id="tab-pillar-4" class="pillar-tab bg-white hover:bg-slate-50 text-slate-700 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl border border-slate-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 whitespace-nowrap flex-shrink-0">
+                    <i class="fa-solid fa-boxes-packing text-xs sm:text-sm"></i>
                     <span>4. Segment Products</span>
                 </button>
-                <button onclick="switchPillar(5)" id="tab-pillar-5" class="pillar-tab bg-white hover:bg-slate-50 text-slate-700 px-5 py-3 rounded-xl border border-slate-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-network-wired text-sm"></i>
+                <button onclick="switchPillar(5)" id="tab-pillar-5" class="pillar-tab bg-white hover:bg-slate-50 text-slate-700 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl border border-slate-300 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 whitespace-nowrap flex-shrink-0">
+                    <i class="fa-solid fa-network-wired text-xs sm:text-sm"></i>
                     <span>5. Fintech Risk Shield</span>
                 </button>
             </div>
 
             <!-- Dynamic Pillar Content Display Container -->
-            <div id="pillar-content-display" class="mindmap-card p-6 sm:p-10 rounded-2xl bg-white border border-slate-200 shadow-md">
+            <div id="pillar-content-display" class="mindmap-card p-5 sm:p-10 rounded-2xl bg-white border border-slate-200 shadow-md">
                 <!-- Javascript dynamically renders selected Pillar details here -->
             </div>
 
@@ -637,93 +663,93 @@
     </section>
 
     <!-- SECTION 07: 10× Financial Forecast & Executive MD Revenue Simulator -->
-    <section id="growth-model" class="py-20 bg-white border-b border-slate-200">
+    <section id="growth-model" class="py-14 sm:py-20 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-16" data-aos="fade-up">
+            <div class="max-w-3xl mb-10 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-red-600">07. Financial Growth Model</span>
-                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
                     The 10× Growth Model & MD Revenue Simulator
                 </h2>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
-                <div class="lg:col-span-7 mindmap-card p-6 sm:p-8 rounded-2xl bg-white" data-aos="fade-right">
-                    <div class="flex items-center justify-between mb-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center mb-10 sm:mb-16">
+                <div class="lg:col-span-7 mindmap-card p-5 sm:p-8 rounded-2xl bg-white" data-aos="fade-right">
+                    <div class="flex items-center justify-between mb-4 sm:mb-6 flex-wrap gap-2">
                         <div>
-                            <h3 class="text-lg font-bold font-serif text-slate-900">Subscriber Growth Trajectory</h3>
+                            <h3 class="text-base sm:text-lg font-bold font-serif text-slate-900">Subscriber Growth Trajectory</h3>
                             <p class="text-xs text-slate-500">Scaling path over 3-year transformation</p>
                         </div>
-                        <span class="px-3 py-1 rounded bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold">
+                        <span class="px-2.5 py-1 rounded bg-amber-50 text-amber-700 border border-amber-200 text-[11px] sm:text-xs font-bold">
                             31.2x New Customer Goal
                         </span>
                     </div>
-                    <div class="relative h-72 sm:h-80 w-full">
+                    <div class="relative h-60 sm:h-80 w-full">
                         <canvas id="growthChart"></canvas>
                     </div>
                 </div>
 
-                <div class="lg:col-span-5 space-y-4" data-aos="fade-left">
-                    <div class="mindmap-card p-5 rounded-xl bg-white space-y-2">
-                        <div class="flex justify-between text-sm font-semibold">
+                <div class="lg:col-span-5 space-y-3.5 sm:space-y-4" data-aos="fade-left">
+                    <div class="mindmap-card p-4 sm:p-5 rounded-xl bg-white space-y-1.5">
+                        <div class="flex justify-between text-xs sm:text-sm font-semibold">
                             <span class="text-slate-600">Active Digitized Agents:</span>
                             <span class="text-slate-900 font-bold">200 → <strong class="text-emerald-600">1,000</strong></span>
                         </div>
                         <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                             <div class="h-full bg-emerald-600 rounded-full" style="width: 100%;"></div>
                         </div>
-                        <div class="text-[11px] text-slate-400 text-right">5x Network Activation</div>
+                        <div class="text-[10px] text-slate-400 text-right">5x Network Activation</div>
                     </div>
 
-                    <div class="mindmap-card p-5 rounded-xl bg-white space-y-2">
-                        <div class="flex justify-between text-sm font-semibold">
+                    <div class="mindmap-card p-4 sm:p-5 rounded-xl bg-white space-y-1.5">
+                        <div class="flex justify-between text-xs sm:text-sm font-semibold">
                             <span class="text-slate-600">Leads / Agent / Month:</span>
                             <span class="text-slate-900 font-bold">5 → <strong class="text-amber-600">15</strong></span>
                         </div>
                         <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                             <div class="h-full bg-amber-500 rounded-full" style="width: 100%;"></div>
                         </div>
-                        <div class="text-[11px] text-slate-400 text-right">3x Agent Yield</div>
+                        <div class="text-[10px] text-slate-400 text-right">3x Agent Yield</div>
                     </div>
 
-                    <div class="mindmap-card p-5 rounded-xl bg-white space-y-2">
-                        <div class="flex justify-between text-sm font-semibold">
+                    <div class="mindmap-card p-4 sm:p-5 rounded-xl bg-white space-y-1.5">
+                        <div class="flex justify-between text-xs sm:text-sm font-semibold">
                             <span class="text-slate-600">Digital Inbound Leads / Mo:</span>
                             <span class="text-slate-900 font-bold">20 → <strong class="text-blue-600">600</strong></span>
                         </div>
                         <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                             <div class="h-full bg-blue-600 rounded-full" style="width: 100%;"></div>
                         </div>
-                        <div class="text-[11px] text-slate-400 text-right">30x Organic Inbound Growth</div>
+                        <div class="text-[10px] text-slate-400 text-right">30x Organic Inbound Growth</div>
                     </div>
 
-                    <div class="p-5 rounded-xl bg-slate-900 text-white space-y-1">
-                        <div class="flex justify-between items-center">
+                    <div class="p-4 sm:p-5 rounded-xl bg-slate-900 text-white space-y-1">
+                        <div class="flex justify-between items-center flex-wrap gap-2">
                             <span class="text-xs font-semibold text-slate-300">New Customers / Month (Year 3):</span>
-                            <span class="text-2xl font-extrabold text-emerald-400">3,120</span>
+                            <span class="text-xl sm:text-2xl font-extrabold text-emerald-400">3,120</span>
                         </div>
-                        <p class="text-[11px] text-slate-400">Scaling baseline 100/mo to 3,120/mo in Year 3.</p>
+                        <p class="text-[10px] sm:text-[11px] text-slate-400">Scaling baseline 100/mo to 3,120/mo in Year 3.</p>
                     </div>
                 </div>
             </div>
 
             <!-- EXECUTIVE REVENUE SIMULATOR FOR MANAGING DIRECTOR MAHESH KUNDELLA -->
-            <div class="mindmap-card p-8 rounded-2xl bg-white border border-slate-200" data-aos="fade-up">
-                <div class="max-w-2xl mb-8">
-                    <span class="text-xs font-bold uppercase tracking-wider text-red-700 bg-red-50 px-2.5 py-1 rounded">FOR MD MAHESH KUNDELLA</span>
-                    <h3 class="text-2xl font-serif font-bold text-slate-900 mt-2">
+            <div class="mindmap-card p-5 sm:p-8 rounded-2xl bg-white border border-slate-200" data-aos="fade-up">
+                <div class="max-w-2xl mb-6 sm:mb-8">
+                    <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-red-700 bg-red-50 px-2.5 py-1 rounded">FOR MD MAHESH KUNDELLA</span>
+                    <h3 class="text-xl sm:text-2xl font-serif font-bold text-slate-900 mt-2">
                         Executive Foreman Commission (5%) Revenue Simulator
                     </h3>
                     <p class="text-xs text-slate-500 mt-1">Slide parameters to simulate MK Chit Funds' monthly company commission earnings at scale.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
                     <div class="space-y-4">
                         <div>
                             <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
                                 <span>Active Digitized Agents:</span>
                                 <span id="sim-agents-label" class="text-red-600 font-bold">500 Agents</span>
                             </div>
-                            <input type="range" id="sim-agents" min="100" max="1000" step="50" value="500" class="w-full accent-red-600 cursor-pointer">
+                            <input type="range" id="sim-agents" min="100" max="1000" step="50" value="500" class="w-full accent-red-600 cursor-pointer h-2 bg-slate-200 rounded-lg">
                         </div>
 
                         <div>
@@ -731,7 +757,7 @@
                                 <span>Average Chit Value / Subscriber:</span>
                                 <span id="sim-chitval-label" class="text-red-600 font-bold">₹500,000</span>
                             </div>
-                            <input type="range" id="sim-chitval" min="100000" max="2500000" step="100000" value="500000" class="w-full accent-red-600 cursor-pointer">
+                            <input type="range" id="sim-chitval" min="100000" max="2500000" step="100000" value="500000" class="w-full accent-red-600 cursor-pointer h-2 bg-slate-200 rounded-lg">
                         </div>
 
                         <div>
@@ -739,27 +765,27 @@
                                 <span>Subscriber Onboarding / Month:</span>
                                 <span id="sim-subs-label" class="text-emerald-600 font-bold">1,200 New/Mo</span>
                             </div>
-                            <input type="range" id="sim-subs" min="200" max="3500" step="100" value="1200" class="w-full accent-emerald-600 cursor-pointer">
+                            <input type="range" id="sim-subs" min="200" max="3500" step="100" value="1200" class="w-full accent-emerald-600 cursor-pointer h-2 bg-slate-200 rounded-lg">
                         </div>
                     </div>
 
-                    <div class="p-6 rounded-xl bg-cream-50 border border-slate-200 text-center space-y-3">
-                        <div class="text-xs font-bold uppercase text-slate-400">Monthly Managed Chit Turnover</div>
-                        <div id="sim-turnover" class="text-3xl font-extrabold text-slate-900">₹600,000,000</div>
+                    <div class="p-5 sm:p-6 rounded-xl bg-cream-50 border border-slate-200 text-center space-y-3">
+                        <div class="text-[10px] sm:text-xs font-bold uppercase text-slate-400">Monthly Managed Chit Turnover</div>
+                        <div id="sim-turnover" class="text-2xl sm:text-3xl font-extrabold text-slate-900">₹600,000,000</div>
 
-                        <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-200 text-left">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-slate-200 text-left">
                             <div>
-                                <div class="text-[11px] text-slate-500">Est. 5% Foreman Gross Rev</div>
-                                <div id="sim-foreman-rev" class="text-base font-bold text-red-600">₹30,000,000</div>
+                                <div class="text-[10px] sm:text-[11px] text-slate-500">Est. 5% Foreman Gross Rev</div>
+                                <div id="sim-foreman-rev" class="text-sm sm:text-base font-bold text-red-600">₹30,000,000</div>
                             </div>
                             <div>
-                                <div class="text-[11px] text-slate-500">Est. Annual Company Payout</div>
-                                <div id="sim-annual-rev" class="text-base font-bold text-emerald-600">₹360,000,000</div>
+                                <div class="text-[10px] sm:text-[11px] text-slate-500">Est. Annual Company Payout</div>
+                                <div id="sim-annual-rev" class="text-sm sm:text-base font-bold text-emerald-600">₹360,000,000</div>
                             </div>
                         </div>
 
-                        <a href="#outcomes" class="w-full py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wide shadow-sm block text-center">
-                            <i class="fa-solid fa-chart-line mr-1.5 text-sm text-emerald-400"></i> View Strategic Outcomes Recap
+                        <a href="#outcomes" class="w-full py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wide shadow-sm block text-center mt-2">
+                            <i class="fa-solid fa-chart-line mr-1.5 text-xs text-emerald-400"></i> View Strategic Outcomes
                         </a>
                     </div>
                 </div>
@@ -768,46 +794,46 @@
     </section>
 
     <!-- SECTION 08: 3-Year Implementation Roadmap -->
-    <section id="roadmap" class="py-20 bg-cream-100 border-b border-slate-200">
+    <section id="roadmap" class="py-14 sm:py-20 bg-cream-100 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-16" data-aos="fade-up">
+            <div class="max-w-3xl mb-10 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-red-600">08. Execution Timeline</span>
-                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
                     3-Year Execution Roadmap & Milestones
                 </h2>
-                <p class="text-slate-600 mt-3 text-base">
+                <p class="text-slate-600 mt-2 sm:mt-3 text-sm sm:text-base">
                     A phased, low-risk execution plan delivering immediate cash-flow gains while building long-term digital moat.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-t-4 border-t-red-600">
-                    <span class="px-2.5 py-1 rounded bg-red-50 text-red-600 text-xs font-extrabold uppercase">PHASE 1: MONTHS 1–6</span>
-                    <h3 class="text-xl font-serif font-bold text-slate-900 mt-3 mb-2">Digital Foundation & Agent Boost</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8" data-aos="fade-up">
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-t-4 border-t-red-600">
+                    <span class="px-2.5 py-1 rounded bg-red-50 text-red-600 text-[10px] sm:text-xs font-extrabold uppercase">PHASE 1: MONTHS 1–6</span>
+                    <h3 class="text-lg sm:text-xl font-serif font-bold text-slate-900 mt-3 mb-2">Digital Foundation & Agent Boost</h3>
                     <ul class="space-y-2 text-xs text-slate-600">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-600 mt-0.5"></i> Launch redesigned web platform & instant WhatsApp bot.</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-600 mt-0.5"></i> Equip Top 100 pioneer agents with QR kits & instant UPI payouts.</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-600 mt-0.5"></i> Set up Google Maps #1 local search pack in Hyderabad.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-600 mt-0.5 flex-shrink-0"></i> <span>Launch redesigned web platform & instant WhatsApp bot.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-600 mt-0.5 flex-shrink-0"></i> <span>Equip Top 100 pioneer agents with QR kits & instant UPI payouts.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-600 mt-0.5 flex-shrink-0"></i> <span>Set up Google Maps #1 local search pack in Hyderabad.</span></li>
                     </ul>
                 </div>
 
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-t-4 border-t-amber-500">
-                    <span class="px-2.5 py-1 rounded bg-amber-50 text-amber-700 text-xs font-extrabold uppercase">PHASE 2: MONTHS 7–18</span>
-                    <h3 class="text-xl font-serif font-bold text-slate-900 mt-3 mb-2">SME Market Expansion & Ads</h3>
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-t-4 border-t-amber-500">
+                    <span class="px-2.5 py-1 rounded bg-amber-50 text-amber-700 text-[10px] sm:text-xs font-extrabold uppercase">PHASE 2: MONTHS 7–18</span>
+                    <h3 class="text-lg sm:text-xl font-serif font-bold text-slate-900 mt-3 mb-2">SME Market Expansion & Ads</h3>
                     <ul class="space-y-2 text-xs text-slate-600">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-600 mt-0.5"></i> Launch "Vyapar 30" SME working capital chit groups across Hyderabad.</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-600 mt-0.5"></i> Scale Meta & Google ad campaigns to 500+ inbound leads/mo.</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-600 mt-0.5"></i> Implement AI credit underwriting & e-NACH auto-debit.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-600 mt-0.5 flex-shrink-0"></i> <span>Launch "Vyapar 30" SME working capital chit groups across Hyderabad.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-600 mt-0.5 flex-shrink-0"></i> <span>Scale Meta & Google ad campaigns to 500+ inbound leads/mo.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-amber-600 mt-0.5 flex-shrink-0"></i> <span>Implement AI credit underwriting & e-NACH auto-debit.</span></li>
                     </ul>
                 </div>
 
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-t-4 border-t-emerald-600">
-                    <span class="px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 text-xs font-extrabold uppercase">PHASE 3: MONTHS 19–36</span>
-                    <h3 class="text-xl font-serif font-bold text-slate-900 mt-3 mb-2">Telangana State Dominance</h3>
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-t-4 border-t-emerald-600">
+                    <span class="px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 text-[10px] sm:text-xs font-extrabold uppercase">PHASE 3: MONTHS 19–36</span>
+                    <h3 class="text-lg sm:text-xl font-serif font-bold text-slate-900 mt-3 mb-2">Telangana State Dominance</h3>
                     <ul class="space-y-2 text-xs text-slate-600">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-0.5"></i> Expand agent force to full 1,000 active digital agents.</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-0.5"></i> Open digital branch hubs in Warangal, Karimnagar, & Nizamabad.</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-0.5"></i> Achieve target 3,120 new subscriber onboardings/month.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-0.5 flex-shrink-0"></i> <span>Expand agent force to full 1,000 active digital agents.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-0.5 flex-shrink-0"></i> <span>Open digital branch hubs in Warangal, Karimnagar, & Nizamabad.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-0.5 flex-shrink-0"></i> <span>Achieve target 3,120 new subscriber onboardings/month.</span></li>
                     </ul>
                 </div>
             </div>
@@ -815,96 +841,96 @@
     </section>
 
     <!-- SECTION 10: RECAP OF OVERALL IMPROVEMENTS & EXPECTED OUTCOMES -->
-    <section id="outcomes" class="py-20 bg-white border-b border-slate-200">
+    <section id="outcomes" class="py-14 sm:py-20 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-16" data-aos="fade-up">
+            <div class="max-w-3xl mb-10 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-red-600">10. Transformation Recap</span>
-                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
                     Overall Improvements & Expected Strategic Outcomes
                 </h2>
-                <p class="text-slate-600 mt-3 text-base">
+                <p class="text-slate-600 mt-2 sm:mt-3 text-sm sm:text-base">
                     A comprehensive summary of every strategic lever, operational enhancement, and revenue outcome we will deploy to scale MK Chit Funds to 10× market leadership.
                 </p>
             </div>
 
             <!-- Comprehensive 6-Pillar Recap Matrix -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" data-aos="fade-up">
                 
                 <!-- Recap Item 1: Brand Trust & Legal Credibility -->
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-t-4 border-t-red-600 space-y-4">
-                    <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-bold text-xl">
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-t-4 border-t-red-600 space-y-3 sm:space-y-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-bold text-lg sm:text-xl">
                         <i class="fa-solid fa-shield-halved"></i>
                     </div>
-                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-red-600 bg-red-50 px-2 py-0.5 rounded">01. TRUST & LEGAL SHIELD</span>
-                    <h3 class="text-lg font-bold text-slate-900">100% Payout & Compliance Verification</h3>
+                    <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-red-600 bg-red-50 px-2 py-0.5 rounded">01. TRUST & LEGAL SHIELD</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900">100% Payout & Compliance Verification</h3>
                     <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-red-600 mt-0.5"></i> <span><strong>Live Telangana Govt Verification:</strong> 1-click Registrar license lookup on digital receipts.</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-red-600 mt-0.5"></i> <span><strong>Customer Video Testimonials:</strong> Telugu video proof hub of 100% prompt payouts.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-red-600 mt-0.5 flex-shrink-0"></i> <span><strong>Live Govt Verification:</strong> 1-click Registrar license lookup on receipts.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-red-600 mt-0.5 flex-shrink-0"></i> <span><strong>Customer Video Testimonials:</strong> Telugu video proof hub of prompt payouts.</span></li>
                     </ul>
                 </div>
 
                 <!-- Recap Item 2: Omnichannel Acquisition Flywheel -->
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-t-4 border-t-emerald-600 space-y-4">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xl">
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-t-4 border-t-emerald-600 space-y-3 sm:space-y-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg sm:text-xl">
                         <i class="fa-solid fa-bullseye"></i>
                     </div>
-                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">02. ACQUISITION FLYWHEEL</span>
-                    <h3 class="text-lg font-bold text-slate-900">Multi-Channel Inbound Lead Funnel</h3>
+                    <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">02. ACQUISITION FLYWHEEL</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900">Multi-Channel Inbound Lead Funnel</h3>
                     <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i> <span><strong>Pincode Meta & Google Ads:</strong> Targeting traders & professionals in Hyderabad.</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i> <span><strong>SEO & Maps Top 3:</strong> 600+ monthly organic inbound leads for Hyderabad queries.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-600 mt-0.5 flex-shrink-0"></i> <span><strong>Pincode Meta & Google Ads:</strong> Targeting traders & professionals in Hyderabad.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-600 mt-0.5 flex-shrink-0"></i> <span><strong>SEO & Maps Top 3:</strong> 600+ monthly organic inbound leads.</span></li>
                     </ul>
                 </div>
 
                 <!-- Recap Item 3: 1,000 Agent Army OS -->
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-t-4 border-t-blue-600 space-y-4">
-                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xl">
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-t-4 border-t-blue-600 space-y-3 sm:space-y-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg sm:text-xl">
                         <i class="fa-solid fa-users-gear"></i>
                     </div>
-                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded">03. AGENT FORCE OS</span>
-                    <h3 class="text-lg font-bold text-slate-900">Instant UPI Payouts & 3x Agent Yield</h3>
+                    <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded">03. AGENT FORCE OS</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900">Instant UPI Payouts & 3x Agent Yield</h3>
                     <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-blue-600 mt-0.5"></i> <span><strong>Instant UPI Payouts:</strong> 50% commission sent instantly on 1st installment clearance.</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-blue-600 mt-0.5"></i> <span><strong>3x Agent Yield:</strong> Boosted agent output from 5 to 15 qualified leads/month.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-blue-600 mt-0.5 flex-shrink-0"></i> <span><strong>Instant UPI Payouts:</strong> 50% commission sent instantly on 1st payment.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-blue-600 mt-0.5 flex-shrink-0"></i> <span><strong>3x Agent Yield:</strong> Boosted output from 5 to 15 leads/month.</span></li>
                     </ul>
                 </div>
 
                 <!-- Recap Item 4: Product Line Expansion -->
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-t-4 border-t-amber-500 space-y-4">
-                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-xl">
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-t-4 border-t-amber-500 space-y-3 sm:space-y-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg sm:text-xl">
                         <i class="fa-solid fa-boxes-packing"></i>
                     </div>
-                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded">04. PRODUCT REVENUE MATRIX</span>
-                    <h3 class="text-lg font-bold text-slate-900">SME, Women & NRI Chit Offerings</h3>
+                    <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded">04. PRODUCT REVENUE MATRIX</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900">SME, Women & NRI Chit Offerings</h3>
                     <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-amber-600 mt-0.5"></i> <span><strong>"Vyapar 30" SME Chits (₹5L-25L):</strong> Working capital pools for wholesale shopkeepers.</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-amber-600 mt-0.5"></i> <span><strong>"NRI Wealth" High-Yield (₹25L-1 Cr):</strong> Wealth accumulation for Telugu diaspora.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-amber-600 mt-0.5 flex-shrink-0"></i> <span><strong>"Vyapar 30" SME Chits (₹5L-25L):</strong> Working capital for merchants.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-amber-600 mt-0.5 flex-shrink-0"></i> <span><strong>"NRI Wealth" High-Yield:</strong> Wealth accumulation for Telugu diaspora.</span></li>
                     </ul>
                 </div>
 
                 <!-- Recap Item 5: Risk Control & AI Tech Stack -->
-                <div class="mindmap-card p-8 rounded-2xl bg-white border-t-4 border-t-purple-600 space-y-4">
-                    <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-xl">
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white border-t-4 border-t-purple-600 space-y-3 sm:space-y-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-lg sm:text-xl">
                         <i class="fa-solid fa-network-wired"></i>
                     </div>
-                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-600 bg-purple-50 px-2 py-0.5 rounded">05. FINTECH RISK SHIELD</span>
-                    <h3 class="text-lg font-bold text-slate-900">AI Underwriting & e-NACH Auto-Debit</h3>
+                    <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-purple-600 bg-purple-50 px-2 py-0.5 rounded">05. FINTECH RISK SHIELD</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900">AI Underwriting & e-NACH Auto-Debit</h3>
                     <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-purple-600 mt-0.5"></i> <span><strong>AI Credit Scoring:</strong> Automated GST & CIBIL check before approving bids.</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-purple-600 mt-0.5"></i> <span><strong>e-NACH Auto-Debit:</strong> Scheduled bank debits reducing bounce rate by 70%.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-purple-600 mt-0.5 flex-shrink-0"></i> <span><strong>AI Credit Scoring:</strong> Automated GST & CIBIL check before approving bids.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-purple-600 mt-0.5 flex-shrink-0"></i> <span><strong>e-NACH Auto-Debit:</strong> Scheduled bank debits cutting bounce rate.</span></li>
                     </ul>
                 </div>
 
                 <!-- Recap Item 6: Executive Financial Impact -->
-                <div class="mindmap-card p-8 rounded-2xl bg-slate-900 text-white border-t-4 border-t-red-600 space-y-4">
-                    <div class="w-12 h-12 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold text-xl">
+                <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-slate-900 text-white border-t-4 border-t-red-600 space-y-3 sm:space-y-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold text-lg sm:text-xl">
                         <i class="fa-solid fa-sack-dollar"></i>
                     </div>
-                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-red-400">06. FINANCIAL TARGET</span>
-                    <h3 class="text-lg font-bold text-white">3,120 Subscribers / Month & 10× Scale</h3>
+                    <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-red-400">06. FINANCIAL TARGET</span>
+                    <h3 class="text-base sm:text-lg font-bold text-white">3,120 Subscribers / Month & 10× Scale</h3>
                     <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800 pt-3">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-400 mt-0.5"></i> <span><strong>Monthly Onboarding Target:</strong> 3,120 new subscribers/month in Year 3.</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-400 mt-0.5"></i> <span><strong>5% Foreman Margin:</strong> Scaled company gross commission revenue to ₹30+ Cr.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-400 mt-0.5 flex-shrink-0"></i> <span><strong>Monthly Onboarding Target:</strong> 3,120 new subscribers/mo in Year 3.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-400 mt-0.5 flex-shrink-0"></i> <span><strong>5% Foreman Margin:</strong> Scaled gross commission revenue to ₹30+ Cr.</span></li>
                     </ul>
                 </div>
 
@@ -913,21 +939,21 @@
     </section>
 
     <!-- SECTION 11: Executive Leadership Profile & Snug 3D Flip Card -->
-    <section id="contact" class="py-20 bg-cream-100 border-b border-slate-200">
+    <section id="contact" class="py-14 sm:py-20 bg-cream-100 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-12" data-aos="fade-up">
+            <div class="max-w-3xl mb-8 sm:mb-12" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-red-600">11. Executive Leadership Profile</span>
-                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-slate-900 mt-2">
                     MK Chit Funds Management Leadership
                 </h2>
             </div>
 
             <!-- Grid Container with Snug Fitting Profile Card -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-aos="fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center" data-aos="fade-up">
                 
                 <!-- LEFT COLUMN: 3D Floating Profile Card Snug Fitted to Image Width -->
                 <div class="lg:col-span-5 flex justify-center">
-                    <div class="perspective-container w-full max-w-[360px] h-[480px] cursor-pointer group" onclick="toggleProfileFlip(this)">
+                    <div class="perspective-container w-full max-w-[320px] sm:max-w-[360px] h-[430px] sm:h-[480px] cursor-pointer group" onclick="toggleProfileFlip(this)">
                         <div id="mahesh-flip-card" class="flip-card-3d floating-3d-box">
                             
                             <!-- FRONT SIDE: Uncropped Full Mahesh Photo Edge-to-Edge -->
@@ -936,28 +962,28 @@
                             </div>
 
                             <!-- BACK SIDE: Official Logo + Managing Director Name in RED Text -->
-                            <div class="card-face card-face-back p-8 flex flex-col justify-between items-center text-center dot-pattern">
-                                <div class="w-full space-y-6 flex flex-col items-center justify-center my-auto">
+                            <div class="card-face card-face-back p-6 sm:p-8 flex flex-col justify-between items-center text-center dot-pattern">
+                                <div class="w-full space-y-4 sm:space-y-6 flex flex-col items-center justify-center my-auto">
                                     <!-- Official Logo -->
-                                    <img src="assets/MK chitfunds logo.png" alt="MK Chit Funds Logo" class="h-16 w-auto object-contain mx-auto">
+                                    <img src="assets/MK chitfunds logo.png" alt="MK Chit Funds Logo" class="h-12 sm:h-16 w-auto object-contain mx-auto">
                                     
                                     <!-- Managing Director Name in RED text -->
                                     <div class="space-y-1">
-                                        <h3 class="text-2xl font-serif font-extrabold text-red-600">Mahesh Kundella</h3>
-                                        <p class="text-xs font-bold text-slate-800 uppercase tracking-wider">Managing Director, B.A (LLB)</p>
+                                        <h3 class="text-xl sm:text-2xl font-serif font-extrabold text-red-600">Mahesh Kundella</h3>
+                                        <p class="text-[10px] sm:text-xs font-bold text-slate-800 uppercase tracking-wider">Managing Director, B.A (LLB)</p>
                                     </div>
 
-                                    <div class="w-16 h-1 bg-red-600 mx-auto rounded-full"></div>
+                                    <div class="w-12 sm:w-16 h-1 bg-red-600 mx-auto rounded-full"></div>
 
-                                    <div class="space-y-2 text-xs text-slate-700 font-medium">
-                                        <p class="font-bold text-slate-900 text-sm">+91 77319 36909</p>
+                                    <div class="space-y-1.5 text-xs text-slate-700 font-medium">
+                                        <p class="font-bold text-slate-900 text-xs sm:text-sm">+91 77319 36909</p>
                                         <p class="text-slate-600">040 7969 1620</p>
                                         <p class="text-red-600 font-semibold">info@mkchitfund.com</p>
                                         <p class="text-slate-500">www.mkchitfund.com</p>
                                     </div>
                                 </div>
 
-                                <div class="text-[11px] text-slate-400 font-serif italic pt-4 border-t border-slate-100 w-full text-center">
+                                <div class="text-[10px] sm:text-[11px] text-slate-400 font-serif italic pt-3 border-t border-slate-100 w-full text-center">
                                     "save money.. money will save you!"
                                 </div>
                             </div>
@@ -967,41 +993,41 @@
                 </div>
 
                 <!-- RIGHT COLUMN: Corporate Headquarters Contact Card -->
-                <div class="lg:col-span-7 space-y-5">
-                    <div class="mindmap-card p-8 rounded-2xl bg-white space-y-6 border border-slate-200">
+                <div class="lg:col-span-7 space-y-4 sm:space-y-5">
+                    <div class="mindmap-card p-6 sm:p-8 rounded-2xl bg-white space-y-5 sm:space-y-6 border border-slate-200">
                         <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
-                            <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-bold text-xl flex-shrink-0">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-bold text-lg sm:text-xl flex-shrink-0">
                                 <i class="fa-solid fa-building-user"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-slate-900 font-serif">Corporate Headquarters</h3>
+                                <h3 class="text-lg sm:text-xl font-bold text-slate-900 font-serif">Corporate Headquarters</h3>
                                 <p class="text-xs text-slate-500 font-medium">MK Chit Funds Private Limited — Hyderabad</p>
                             </div>
                         </div>
 
-                        <div class="space-y-4 text-xs text-slate-700">
-                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+                        <div class="space-y-3 sm:space-y-4 text-xs text-slate-700">
+                            <div class="p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
                                 <div class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                                     <i class="fa-solid fa-location-dot text-red-600"></i> Headquarters Address
                                 </div>
-                                <p class="text-slate-600 leading-relaxed pt-1">
+                                <p class="text-slate-600 leading-relaxed pt-1 text-xs">
                                     Plot no:77, H.No:10-174/7, 2nd Floor, Above Bharath Car Decors, OPP N7 Hotel, Kharmanghat Main Road, Sri Ram Nagar Colony, Hyderabad, Rangareddy Dist, Telangana - 500035
                                 </p>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                                    <div class="text-[11px] font-bold text-slate-400 uppercase">Direct Helpline</div>
-                                    <a href="tel:+917731936909" class="text-sm font-extrabold text-red-600 hover:underline block mt-0.5">+91 77319 36909</a>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                                <div class="p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                    <div class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase">Direct Helpline</div>
+                                    <a href="tel:+917731936909" class="text-xs sm:text-sm font-extrabold text-red-600 hover:underline block mt-0.5">+91 77319 36909</a>
                                 </div>
-                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                                    <div class="text-[11px] font-bold text-slate-400 uppercase">Landline Phone</div>
-                                    <a href="tel:04079691620" class="text-sm font-bold text-slate-900 hover:underline block mt-0.5">040 7969 1620</a>
+                                <div class="p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                    <div class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase">Landline Phone</div>
+                                    <a href="tel:04079691620" class="text-xs sm:text-sm font-bold text-slate-900 hover:underline block mt-0.5">040 7969 1620</a>
                                 </div>
                             </div>
                         </div>
 
-                        <a href="#outcomes" class="w-full py-4 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm mt-4 block text-center">
+                        <a href="#outcomes" class="w-full py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm block text-center">
                             <i class="fa-solid fa-handshake mr-2 text-red-400"></i> Review Strategic Outcomes with Mahesh Kundella
                         </a>
                     </div>
@@ -1012,11 +1038,11 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-12">
+    <footer class="bg-slate-900 text-slate-400 py-10 sm:py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800 text-center md:text-left">
-                <img src="assets/MK chitfunds logo.png" alt="MK Chit Fund" class="h-10 w-auto object-contain brightness-200">
-                <div class="text-xs text-slate-400">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 sm:pb-8 border-b border-slate-800 text-center md:text-left">
+                <img src="assets/MK chitfunds logo.png" alt="MK Chit Fund" class="h-9 sm:h-10 w-auto object-contain brightness-200">
+                <div class="text-xs text-slate-400 max-w-md">
                     Prepared specifically for <strong class="text-white">MK Chit Funds Management</strong> | Strategic Confidential 100% Growth Proposal.
                 </div>
                 <div class="text-xs text-slate-400 text-center md:text-right">
@@ -1025,7 +1051,7 @@
                 </div>
             </div>
 
-            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+            <div class="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
                 <div>&copy; 2026 MK Chit Funds Strategy. All rights reserved.</div>
                 <a href="#" class="hover:text-white transition-colors flex items-center gap-1.5">
                     <span>Back to top</span>
@@ -1115,7 +1141,6 @@
         };
 
         function switchPillar(id) {
-            // Remove active state from all tabs
             for (let i = 1; i <= 5; i++) {
                 const tab = document.getElementById('tab-pillar-' + i);
                 if (tab) {
@@ -1124,7 +1149,6 @@
                 }
             }
 
-            // Set active state on clicked tab
             const activeTab = document.getElementById('tab-pillar-' + id);
             if (activeTab) {
                 activeTab.classList.add('active');
@@ -1135,33 +1159,31 @@
             const display = document.getElementById('pillar-content-display');
 
             display.innerHTML = `
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center transition-all duration-300">
-                    <!-- Left: 3D Visual Mockup -->
-                    <div class="lg:col-span-5 space-y-3">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center transition-all duration-300">
+                    <div class="lg:col-span-5 space-y-2.5">
                         <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-md bg-slate-950">
-                            <img src="${data.image}" alt="${data.imageTitle}" class="w-full h-72 object-cover object-center">
+                            <img src="${data.image}" alt="${data.imageTitle}" class="w-full h-52 sm:h-72 object-cover object-center">
                         </div>
-                        <div class="text-center text-xs font-bold text-slate-700 pt-1">
+                        <div class="text-center text-xs font-bold text-slate-700 pt-0.5">
                             <i class="fa-solid fa-cube text-red-600 mr-1.5"></i> ${data.imageTitle}
                         </div>
                     </div>
 
-                    <!-- Right: Strategic Details & Levers -->
-                    <div class="lg:col-span-7 space-y-5">
-                        <div class="space-y-2">
-                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-extrabold uppercase ${data.badgeColor}">
+                    <div class="lg:col-span-7 space-y-4 sm:space-y-5">
+                        <div class="space-y-1.5 sm:space-y-2">
+                            <div class="inline-flex items-center gap-2 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border text-[10px] sm:text-xs font-extrabold uppercase ${data.badgeColor}">
                                 ${data.badge}
                             </div>
-                            <h3 class="text-2xl font-serif font-bold text-slate-900">${data.title}</h3>
+                            <h3 class="text-xl sm:text-2xl font-serif font-bold text-slate-900">${data.title}</h3>
                             <p class="text-xs font-bold text-red-600 uppercase tracking-wider">${data.tagline}</p>
-                            <p class="text-sm text-slate-600 leading-relaxed font-body pt-1">${data.description}</p>
+                            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-body pt-0.5">${data.description}</p>
                         </div>
 
-                        <div class="space-y-3 border-t border-slate-100 pt-4">
-                            <div class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Key Execution Levers:</div>
+                        <div class="space-y-2.5 sm:space-y-3 border-t border-slate-100 pt-3 sm:pt-4">
+                            <div class="text-[11px] sm:text-xs font-extrabold text-slate-900 uppercase tracking-wider">Key Execution Levers:</div>
                             ${data.levers.map((lever, idx) => `
-                                <div class="p-3.5 rounded-xl bg-cream-50 border border-slate-200 flex items-start gap-3">
-                                    <div class="w-6 h-6 rounded-full bg-red-600 text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <div class="p-3 sm:p-3.5 rounded-xl bg-cream-50 border border-slate-200 flex items-start gap-2.5 sm:gap-3">
+                                    <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-red-600 text-white font-bold text-[10px] sm:text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
                                         ${idx + 1}
                                     </div>
                                     <div>
@@ -1176,13 +1198,17 @@
             `;
         }
 
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) menu.classList.add('hidden');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             AOS.init({ duration: 700, once: true, offset: 40 });
             initGrowthChart();
             initRevenueSimulator();
-            switchPillar(1); // Initialize Visual Strategy Hub with Pillar 1
+            switchPillar(1);
 
-            // Floating Header Scroll Logic (Zero Horizontal Movement)
             const header = document.getElementById('main-header');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 40) {
@@ -1212,28 +1238,28 @@
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Current Baseline', 'Year 1 (Foundation)', 'Year 2 (Acceleration)', 'Year 3 (10x Scale)'],
+                    labels: ['Current', 'Year 1', 'Year 2', 'Year 3'],
                     datasets: [
                         {
-                            label: 'New Subscribers / Month',
+                            label: 'New Subscribers / Mo',
                             data: [100, 510, 1450, 3120],
                             borderColor: '#DC2626',
                             backgroundColor: 'rgba(220, 38, 38, 0.06)',
                             fill: true,
                             tension: 0.35,
                             borderWidth: 3,
-                            pointRadius: 5,
+                            pointRadius: 4,
                             pointBackgroundColor: '#DC2626'
                         },
                         {
-                            label: 'Digital Inbound Leads / Month',
+                            label: 'Inbound Leads / Mo',
                             data: [20, 150, 350, 600],
                             borderColor: '#2563EB',
                             backgroundColor: 'transparent',
                             borderDash: [4, 4],
                             tension: 0.35,
                             borderWidth: 2,
-                            pointRadius: 4
+                            pointRadius: 3
                         }
                     ]
                 },
@@ -1242,17 +1268,17 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            labels: { color: '#334155', font: { family: 'Inter', size: 12, weight: '500' } }
+                            labels: { color: '#334155', font: { family: 'Inter', size: 11, weight: '500' } }
                         }
                     },
                     scales: {
                         x: {
                             grid: { color: '#F1F5F9' },
-                            ticks: { color: '#64748B', font: { family: 'Inter', size: 11 } }
+                            ticks: { color: '#64748B', font: { family: 'Inter', size: 10 } }
                         },
                         y: {
                             grid: { color: '#F1F5F9' },
-                            ticks: { color: '#64748B', font: { family: 'Inter', size: 11 } }
+                            ticks: { color: '#64748B', font: { family: 'Inter', size: 10 } }
                         }
                     }
                 }
@@ -1275,7 +1301,7 @@
                 document.getElementById('sim-subs-label').innerText = subs.toLocaleString('en-IN') + ' New/Mo';
 
                 const monthlyTurnover = chitVal * subs;
-                const monthlyForemanGrossRev = monthlyTurnover * 0.05; // 5% Chit Fund Foreman Commission
+                const monthlyForemanGrossRev = monthlyTurnover * 0.05;
                 const annualForemanRev = monthlyForemanGrossRev * 12;
 
                 document.getElementById('sim-turnover').innerText = '₹' + monthlyTurnover.toLocaleString('en-IN');
