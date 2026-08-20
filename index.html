@@ -64,50 +64,43 @@
             width: 100%;
         }
         
-        /* Modern Floating Glassmorphic Header - Zero Horizontal Shift */
+        /* Permanent Floating Glassmorphic Pill Header Throughout the Page */
         .executive-header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            position: fixed;
+            top: 10px;
+            left: 0;
+            right: 0;
+            z-index: 100;
             width: 100%;
-            padding: 0.5rem 0.75rem;
-            transition: padding 0.3s ease;
+            padding: 0 0.75rem;
+            pointer-events: none;
         }
         
         @media (min-width: 640px) {
             .executive-header {
-                padding: 0.75rem 1rem;
+                top: 14px;
+                padding: 0 1.25rem;
             }
         }
         
         .header-inner {
-            max-width: 80rem;
+            pointer-events: auto;
+            max-width: 84rem;
             margin: 0 auto;
-            border-radius: 1rem;
-            background: rgba(253, 251, 247, 0.96);
-            backdrop-filter: blur(12px);
-            border: 1px solid #E2E8F0;
+            border-radius: 9999px; /* Permanent Floating Pill */
+            background: rgba(255, 255, 255, 0.82);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(226, 232, 240, 0.85);
+            box-shadow: 0 12px 32px -6px rgba(15, 23, 42, 0.09), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
             transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
+            padding: 0.45rem 1rem;
         }
         
         @media (min-width: 640px) {
             .header-inner {
                 padding: 0.5rem 1.5rem;
             }
-        }
-
-        .executive-header.is-scrolled {
-            padding-top: 0.35rem;
-            padding-bottom: 0.35rem;
-        }
-
-        .executive-header.is-scrolled .header-inner {
-            border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(16px);
-            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
-            border-color: rgba(226, 232, 240, 0.9);
         }
 
         .dot-pattern {
@@ -186,19 +179,19 @@
         }
     </style>
 </head>
-<body class="selection:bg-red-600 selection:text-white">
+<body class="selection:bg-red-600 selection:text-white pt-20 sm:pt-24">
 
-    <!-- Header / Smooth Floating Glassmorphic Navigation Bar -->
+    <!-- Header / Permanent Floating Glassmorphic Pill Navigation Bar -->
     <header id="main-header" class="executive-header">
         <div class="header-inner flex items-center justify-between gap-2 sm:gap-4">
             
             <!-- Official Brand Logo -->
             <a href="#" class="flex items-center gap-2 flex-shrink-0">
-                <img src="assets/MK chitfunds logo.png" alt="MK Chit Fund Logo" class="h-8 sm:h-11 w-auto object-contain">
+                <img src="assets/MK chitfunds logo.png" alt="MK Chit Fund Logo" class="h-8 sm:h-10 w-auto object-contain">
             </a>
 
             <!-- Streamlined, Perfectly Spaced Navigation Links -->
-            <nav class="hidden lg:flex items-center space-x-5 xl:space-x-7 text-xs font-semibold text-slate-700 tracking-wide">
+            <nav class="hidden lg:flex items-center space-x-4 xl:space-x-6 text-xs font-semibold text-slate-700 tracking-wide">
                 <a href="#summary" class="hover:text-red-600 transition-colors whitespace-nowrap">Overview</a>
                 <a href="#marketing" class="hover:text-red-600 transition-colors whitespace-nowrap text-red-600 font-bold">Growth Flywheel</a>
                 <a href="#agents" class="hover:text-red-600 transition-colors whitespace-nowrap">Agent OS</a>
@@ -225,7 +218,7 @@
         </div>
 
         <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-white/98 backdrop-blur-lg border border-slate-200 p-5 space-y-3.5 rounded-2xl shadow-2xl max-w-7xl mx-auto mt-2">
+        <div id="mobile-menu" class="hidden lg:hidden bg-white/95 backdrop-blur-xl border border-slate-200 p-5 space-y-3.5 rounded-3xl shadow-2xl max-w-7xl mx-auto mt-2 pointer-events-auto">
             <a href="#summary" class="block text-slate-800 hover:text-red-600 font-bold text-sm py-1" onclick="closeMobileMenu()">Overview</a>
             <a href="#marketing" class="block text-red-600 font-bold text-sm py-1" onclick="closeMobileMenu()">Growth Flywheel</a>
             <a href="#agents" class="block text-slate-800 hover:text-red-600 font-bold text-sm py-1" onclick="closeMobileMenu()">Agent OS</a>
@@ -1284,15 +1277,6 @@
             initGrowthChart();
             initRevenueSimulator();
             switchPillar(1);
-
-            const header = document.getElementById('main-header');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 40) {
-                    header.classList.add('is-scrolled');
-                } else {
-                    header.classList.remove('is-scrolled');
-                }
-            });
         });
 
         // Mobile Menu Toggle
